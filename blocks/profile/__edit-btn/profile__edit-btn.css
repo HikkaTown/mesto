@@ -27,6 +27,6 @@
   .profile__edit-btn {
     width: 18px;
     height: 18px;
-    background-image: url(../../../images/edit-icon_small.svg);
+    background-size: 7.5px;
   }
 }
