@@ -15,11 +15,11 @@
     <section class="profile">
       <img src="./images/profile-avatar.jpg" alt="Аватар профиля" class="profile__avatar" />
       <div class="profile__info">
-        <p class="profile__name">Жак-Ив Кусто</p>
-        <button class="profile__edit-btn"></button>
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__edit-btn" type="button"></button>
         <p class="profile__job">Исследователь океана</p>
       </div>
-      <button class="profile__add-btn"></button>
+      <button class="profile__add-btn" type="button"></button>
     </section>
     <section class="photocard">
       <ul class="photocard__items">
@@ -27,49 +27,50 @@
           <img src="./images/photocard-img-1.jpg" alt="Фото из Карачаевска" class="photocard__image" />
           <div class="photocard__content">
             <p class="photocard__title">Карачаевск</p>
-            <a href="#" target="_self" class="photocard__like-btn"></a>
+            <button class="photocard__like-btn" type="button"></button>
           </div>
         </li>
         <li class="photocard__item">
           <img src="./images/photocard-img-2.jpg" alt="Красивый вид на гору Эльбрус" class="photocard__image" />
           <div class="photocard__content">
             <p class="photocard__title">Гора Эльбрус</p>
-            <a href="#" target="_self" class="photocard__like-btn"></a>
+            <button class="photocard__like-btn" type="button"></button>
           </div>
         </li>
         <li class="photocard__item">
           <img src="./images/photocard-img-3.jpg" alt="Горный лес - Домбай" class="photocard__image" />
           <div class="photocard__content">
             <p class="photocard__title">Домбай</p>
-            <a href="#" target="_self" class="photocard__like-btn"></a>
+            <button class="photocard__like-btn" type="button"></button>
           </div>
         </li>
         <li class="photocard__item">
           <img src="./images/photocard-img-2.jpg" alt="Эльбрус" class="photocard__image" />
           <div class="photocard__content">
             <p class="photocard__title">Гора Эльбрус</p>
-            <a href="#" target="_self" class="photocard__like-btn"></a>
+            <button class="photocard__like-btn" type="button"></button>
           </div>
         </li>
         <li class="photocard__item">
           <img src="./images/photocard-img-3.jpg" alt="Домбай" class="photocard__image" />
           <div class="photocard__content">
             <p class="photocard__title">Домбай</p>
-            <a href="#" target="_self" class="photocard__like-btn"></a>
+            <button class="photocard__like-btn" type="button"></button>
           </div>
         </li>
         <li class="photocard__item">
           <img src="./images/photocard-img-1.jpg" alt="Старое здание в Карачаево" class="photocard__image" />
           <div class="photocard__content">
             <p class="photocard__title">Карачаево-Черное</p>
-            <a href="#" target="_self" class="photocard__like-btn"></a>
+            <button class="photocard__like-btn" type="button"></button>
           </div>
         </li>
       </ul>
     </section>
     <div class="popup">
-      <form action="#" class="popup__container">
-        <a href="#" target="_self" class="popup__close"></a>
+      <form action="#" class="popup__container" name="Edit-Profile">
+        <!-- <a href="#" target="_self" class="popup__close"></a> -->
+        <button class="popup__close" type="button"></button>
         <h2 class="popup__title">Радактировать профиля</h2>
         <input class="popup__input popup__input_type_name" type="text" name="Name-Profile" >
         <input class="popup__input popup__input_type_job" type="text" name="Job-Profile" >

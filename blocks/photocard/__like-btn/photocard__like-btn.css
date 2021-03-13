@@ -7,6 +7,9 @@
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .3s;
+  border: none;
+  background-color: #fff;
+  outline: none;
 }
 
 .photocard__like-btn:hover {
