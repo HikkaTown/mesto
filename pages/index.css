@@ -13,3 +13,12 @@
 @import url('../blocks/profile/__edit-btn/profile__edit-btn.css');
 @import url('../blocks/profile/__job/profile__job.css');
 @import url('../blocks/profile/__add-btn/profile__add-btn.css');
+/* block photocard */
+@import url('../blocks/photocard/photocard.css');
+@import url('../blocks/photocard/__items/photocard__items.css');
+@import url('../blocks/photocard/__item/photocard__item.css');
+@import url('../blocks/photocard/__image/photocard__image.css');
+@import url('../blocks/photocard/__content/photocard__content.css');
+@import url('../blocks/photocard/__title/photocard__title.css');
+@import url('../blocks/photocard/__like-btn/photocard__like-btn.css');
+@import url('../blocks/photocard/__like-btn/_active/photocard__like-btn_active.css');

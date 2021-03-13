@@ -1,0 +1,14 @@
+.photocard__like-btn {
+  margin-left: auto;
+  height: 19px;
+  width: 22px;
+  background-image: url('../../../images/like-icon.svg');
+  background-repeat: no-repeat;
+  -webkit-transition: .3s;
+  -o-transition: .3s;
+  transition: .3s;
+}
+
+.photocard__like-btn:hover {
+  opacity: .5;
+}
