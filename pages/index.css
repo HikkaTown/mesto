@@ -1,2 +1,4 @@
 @import url('../vendor/normalize.css');
 @import url('../fonts/fonts.css');
+/* block page */
+@import url('../blocks/page/page.css');
