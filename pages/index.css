@@ -22,3 +22,6 @@
 @import url('../blocks/photocard/__title/photocard__title.css');
 @import url('../blocks/photocard/__like-btn/photocard__like-btn.css');
 @import url('../blocks/photocard/__like-btn/_active/photocard__like-btn_active.css');
+/* block footer */
+@import url('../blocks/footer/footer.css');
+@import url('../blocks/footer/__copyright/footer__copyright.css');
