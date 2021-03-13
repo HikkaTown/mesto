@@ -22,6 +22,15 @@
 @import url('../blocks/photocard/__title/photocard__title.css');
 @import url('../blocks/photocard/__like-btn/photocard__like-btn.css');
 @import url('../blocks/photocard/__like-btn/_active/photocard__like-btn_active.css');
+/* block popup */
+@import url('../blocks/overflow-hidden/overflow-hidden.css');
+@import url('../blocks/popup/popup.css');
+@import url('../blocks/popup/_opened/popup_opened.css');
+@import url('../blocks/popup/__container/popup__container.css');
+@import url('../blocks/popup/__close/popup__close.css');
+@import url('../blocks/popup/__title/popup__title.css');
+@import url('../blocks/popup/__input/popup__input.css');
+@import url('../blocks/popup/__submit/popup__submit.css');
 /* block footer */
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__copyright/footer__copyright.css');
