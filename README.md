@@ -7,4 +7,4 @@
 * JavaScript
 * Оптимизация картинок
 # Посмотреть проект: 
-* [Ссылка на GithubPages](....)
+* [Ссылка на GithubPages](https://hikkatown.github.io/mesto/index.html)
