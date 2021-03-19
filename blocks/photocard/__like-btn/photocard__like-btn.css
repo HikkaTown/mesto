@@ -10,6 +10,7 @@
   border: none;
   background-color: #fff;
   outline: none;
+  cursor: pointer;
 }
 
 .photocard__like-btn:hover {

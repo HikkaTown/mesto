@@ -17,6 +17,7 @@
 @import url('../blocks/photocard/photocard.css');
 @import url('../blocks/photocard/__items/photocard__items.css');
 @import url('../blocks/photocard/__item/photocard__item.css');
+@import url('../blocks/photocard/__delet-btn/photocard__delet-btn.css');
 @import url('../blocks/photocard/__image/photocard__image.css');
 @import url('../blocks/photocard/__content/photocard__content.css');
 @import url('../blocks/photocard/__title/photocard__title.css');
@@ -24,12 +25,20 @@
 @import url('../blocks/photocard/__like-btn/_active/photocard__like-btn_active.css');
 /* block popup */
 @import url('../blocks/overflow-hidden/overflow-hidden.css');
+@import url('../blocks/animation-transition/animation-transition.css');
 @import url('../blocks/popup/popup.css');
 @import url('../blocks/popup/_opened/popup_opened.css');
 @import url('../blocks/popup/__container/popup__container.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_edit-form.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_add-form.css');
+@import url('../blocks/popup/__container/_type/popup__container_type_image.css');
+@import url('../blocks/popup/__title-image/popup__title-image.css');
+@import url('../blocks/popup/__image/popup__image.css');
 @import url('../blocks/popup/__close/popup__close.css');
 @import url('../blocks/popup/__title/popup__title.css');
 @import url('../blocks/popup/__input/popup__input.css');
+@import url('../blocks/popup/__input/_type/popup__input_type_name-card.css');
+@import url('../blocks/popup/__input/_type/popup__input_type_url-img.css');
 @import url('../blocks/popup/__submit/popup__submit.css');
 /* block footer */
 @import url('../blocks/footer/footer.css');

@@ -8,4 +8,5 @@
   object-fit: cover;
   -o-object-position: center center;
   object-position: center center;
+  cursor: pointer;
 }

@@ -23,58 +23,30 @@
     </section>
     <section class="photocard">
       <ul class="photocard__items">
-        <li class="photocard__item">
-          <img src="./images/photocard-img-1.jpg" alt="Фото из Карачаевска" class="photocard__image" />
-          <div class="photocard__content">
-            <p class="photocard__title">Карачаевск</p>
-            <button class="photocard__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="photocard__item">
-          <img src="./images/photocard-img-2.jpg" alt="Красивый вид на гору Эльбрус" class="photocard__image" />
-          <div class="photocard__content">
-            <p class="photocard__title">Гора Эльбрус</p>
-            <button class="photocard__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="photocard__item">
-          <img src="./images/photocard-img-3.jpg" alt="Горный лес - Домбай" class="photocard__image" />
-          <div class="photocard__content">
-            <p class="photocard__title">Домбай</p>
-            <button class="photocard__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="photocard__item">
-          <img src="./images/photocard-img-2.jpg" alt="Эльбрус" class="photocard__image" />
-          <div class="photocard__content">
-            <p class="photocard__title">Гора Эльбрус</p>
-            <button class="photocard__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="photocard__item">
-          <img src="./images/photocard-img-3.jpg" alt="Домбай" class="photocard__image" />
-          <div class="photocard__content">
-            <p class="photocard__title">Домбай</p>
-            <button class="photocard__like-btn" type="button"></button>
-          </div>
-        </li>
-        <li class="photocard__item">
-          <img src="./images/photocard-img-1.jpg" alt="Старое здание в Карачаево" class="photocard__image" />
-          <div class="photocard__content">
-            <p class="photocard__title">Карачаево-Черное</p>
-            <button class="photocard__like-btn" type="button"></button>
-          </div>
-        </li>
       </ul>
     </section>
-    <div class="popup">
-      <form action="#" class="popup__container" name="Edit-Profile">
-        <button class="popup__close" type="button"></button>
+    <div class="popup popup_type_edit-profile">
+      <form action="#" class="popup__container popup__container_type_edit-form" name="Edit-Profile">
+        <button class="popup__close popup__close_type_edit-close" type="button"></button>
         <h2 class="popup__title">Радактировать профиля</h2>
         <input class="popup__input popup__input_type_name" type="text" name="Name-Profile" >
         <input class="popup__input popup__input_type_job" type="text" name="Job-Profile" >
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
+    </div>
+    <div class="popup popup_type_add-card">
+      <form action="#" name="Add-Card" class="popup__container popup__container_type_add-form">
+        <button type="button" class="popup__close popup__close_type_add-form"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <input class="popup__input popup__input_type_name-card" type="text" name="Name-Card" placeholder="Название">
+        <input class="popup__input popup__input_type_url-img" type="text" name="Url-Image" placeholder="Ссылка на картинку">
+        <button class="popup__submit" type="submit">Создать</button>
+      </form>
+    </div>
+    <div class="popup popup_type_image">
+      <div class="popup__container popup__container_type_image">
+        <button type="button" class="popup__close popup__close_type_image"></button>
+      </div>
     </div>
   </main>
   <footer class="footer">
