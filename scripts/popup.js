@@ -48,59 +48,55 @@ let popupImageContainer = popupImage.querySelector('.popup__container_type_image
 let imageCloseBtn = popupImageContainer.querySelector('.popup__close_type_image');
 // функция рендера карточек из коробки
 function renderCard(arr) {
+  let template = document.querySelector('.myTemplateCard');
   for(let i = 0; i < arr.length; i++) {
-    photocardList.insertAdjacentHTML('afterbegin', `
-    <li class="photocard__item">
-      <button type="button" class="photocard__delet-btn"></button>
-      <img src="${arr[i].link}" alt="${arr[i].name}" class="photocard__image" />
-      <div class="photocard__content">
-        <p class="photocard__title">${arr[i].name}</p>
-        <button class="photocard__like-btn" type="button"></button>
-      </div>
-    </li>
-    `);
+    let clone = template.content.cloneNode(true);
+    let image = clone.querySelector('.photocard__image');
+    image.src = arr[i].link;
+    image.alt = arr[i].name;
+    let nameCard = clone.querySelector('.photocard__title');
+    nameCard.textContent = arr[i].name;
+    template.parentNode.prepend(clone);
   }
 }
 //слушатель для удаления, лайка, и открытия попапа с предпросмотром картинки
 photocardList.addEventListener('click', (e) => {
   if(e.target.classList.contains('photocard__delet-btn')) {
-    // тут мы нашли кнопку удаления карточки
     let delCard = e.target.parentNode;
     photocardList.removeChild(delCard);
   } else if(e.target.classList.contains('photocard__like-btn')) {
-    // тут нашли кнопку с сердечком
     e.target.classList.toggle('photocard__like-btn_active');
   } else if(e.target.classList.contains('photocard__image')) {
-    console.log('нажали на картинку');
     let url = e.target.getAttribute('src');
     let name = e.target.parentNode.querySelector('.photocard__title').textContent;
     renderImagePrev(name, url);
     popupVisible(e);
   }
-})
+});
 // при октрытие предпросмотра подгружаем название и саму картинку
 function renderImagePrev(name, url) {
-  popupImageContainer.insertAdjacentHTML('beforeEnd', `
-  <img src="${url}" alt="${name}" class="popup__image">
-  <p class="popup__title-image">${name}</p>
-  `);
+  let template = document.querySelector('.templatePrevImage');
+  let clone = template.content.cloneNode(true);
+  let image = clone.querySelector('.popup__image');
+  image.src = url;
+  image.alt = name;
+  let title = clone.querySelector('.popup__title-image');
+  title.textContent = name;
+  template.parentNode.prepend(clone);
 }
 // добавление карты
 addImageForm.addEventListener('submit', (e) => {
   e.preventDefault();
   let nameImage = addImageForm.querySelector('.popup__input_type_name-card');
   let urlImage = addImageForm.querySelector('.popup__input_type_url-img');
-  photocardList.insertAdjacentHTML('afterbegin', `
-  <li class="photocard__item">
-    <button type="button" class="photocard__delet-btn"></button>
-    <img src="${urlImage.value}" alt="${nameImage.value}" class="photocard__image" />
-    <div class="photocard__content">
-      <p class="photocard__title">${nameImage.value}</p>
-      <button class="photocard__like-btn" type="button"></button>
-    </div>
-  </li>
-  `);
-  // очищаем инпуты для следующего добавления карточек
+  let template = document.querySelector('.myTemplateCard');
+  let clone = template.content.cloneNode(true);
+  let title = clone.querySelector('.photocard__title');
+  title.textContent = nameImage.value;
+  let image = clone.querySelector('.photocard__image');
+  image.src = urlImage.value;
+  image.alt = nameImage.value;
+  template.parentNode.prepend(clone);
   nameImage.value = '';
   urlImage.value = '';
   popupHidden();
