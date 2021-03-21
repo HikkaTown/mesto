@@ -23,6 +23,16 @@
     </section>
     <section class="photocard">
       <ul class="photocard__items">
+        <template class="myTemplateCard">
+          <li class="photocard__item">
+            <button type="button" class="photocard__delet-btn"></button>
+            <img src="" alt="" class="photocard__image" />
+            <div class="photocard__content">
+              <p class="photocard__title"></p>
+              <button class="photocard__like-btn" type="button"></button>
+            </div>
+          </li>
+        </template>
       </ul>
     </section>
     <div class="popup popup_type_edit-profile">
@@ -46,6 +56,10 @@
     <div class="popup popup_type_image">
       <div class="popup__container popup__container_type_image">
         <button type="button" class="popup__close popup__close_type_image"></button>
+        <template class="templatePrevImage">
+          <img src="" alt="" class="popup__image">
+          <p class="popup__title-image"></p>
+        </template>
       </div>
     </div>
   </main>
