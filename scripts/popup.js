@@ -70,7 +70,7 @@ addImageForm.addEventListener('submit', (e) => {
   renderCard([{name: nameImage.value , link: urlImage.value }]);
   // очищаю инпуты для следующего добавления
   addImageForm.reset();
-  closePopup(addImageForm);
+  closePopup(popupAddImage);
 });
 
 // добавляю класс с анимацией чтобы не было рывков при загрузке страницы
@@ -86,15 +86,15 @@ addImageBtn.addEventListener('click', (e) => {
 })
 
 // скрытие редактирования профиля при клике на крестик
-popupEditProfile.addEventListener('click', (e) => {
+editCloseBtn.addEventListener('click', (e) => {
   closePopup(popupEditProfile);
 });
 // скрытие просмотра изображения при клике на крестик
-popupAddImage.addEventListener('click', (e) => {
+addCloseBtn.addEventListener('click', (e) => {
   closePopup(popupAddImage);
 });
 // закрытие формы при клике на крестик
-popupImage.addEventListener('click', (e) => {
+popupImageCloseBtn.addEventListener('click', (e) => {
   closePopup(popupImage);
 })
 // открытие формы при клики на кнопку редактировать
@@ -104,7 +104,7 @@ editProfileBtn.addEventListener('click', (e) => {
   jobInput.value = profileJob.textContent;
 })
 // обработчик событий для сохранения редактирования формы редактирования профиля
-editProfileForm.addEventListener('submit', formSubmitHandler);
+editProfileForm.addEventListener('submit', handleProfileSubmit);
 // функция показа попапа с помощью объекта по которому нажали
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -116,11 +116,11 @@ function closePopup(popup) {
   document.querySelector('.page').classList.remove('overflow-hidden');
 }
 
-function formSubmitHandler(e) {
+function handleProfileSubmit(e) {
   e.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  closePopup(editProfileForm);
+  closePopup(popupEditProfile);
 }
 // функция рендера карточек
 renderCard(initialCards);
