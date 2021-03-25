@@ -52,7 +52,7 @@ photocardList.addEventListener('click', (e) => {
     const url = e.target.getAttribute('src');
     const name = e.target.closest('.photocard__item').querySelector('.photocard__title').textContent;
     renderImagePrev(name, url);
-    popupVisible(e);
+    openPopup(popupImage);
   }
 });
 // при октрытие предпросмотра подгружаем название и саму картинку
@@ -70,7 +70,7 @@ addImageForm.addEventListener('submit', (e) => {
   renderCard([{name: nameImage.value , link: urlImage.value }]);
   // очищаю инпуты для следующего добавления
   addImageForm.reset();
-  popupHidden();
+  closePopup(addImageForm);
 });
 
 // добавляю класс с анимацией чтобы не было рывков при загрузке страницы
@@ -82,67 +82,45 @@ setTimeout(() => {
 
 // открытие попапа с добавлением картинки
 addImageBtn.addEventListener('click', (e) => {
-  popupVisible(e);
+  openPopup(popupAddImage);
 })
 
 // скрытие редактирования профиля при клике на крестик
 popupEditProfile.addEventListener('click', (e) => {
-  if(e.target == editCloseBtn) {
-    popupHidden();
-  }
+  closePopup(popupEditProfile);
 });
 // скрытие просмотра изображения при клике на крестик
 popupAddImage.addEventListener('click', (e) => {
-  if(e.target == addCloseBtn) {
-    popupHidden();
-  }
+  closePopup(popupAddImage);
 });
 // закрытие формы при клике на крестик
 popupImage.addEventListener('click', (e) => {
-  if(e.target == popupImageCloseBtn) {
-    popupHidden();
-  }
+  closePopup(popupImage);
 })
 // открытие формы при клики на кнопку редактировать
 editProfileBtn.addEventListener('click', (e) => {
-  popupVisible(e);
+  openPopup(popupEditProfile);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 })
 // обработчик событий для сохранения редактирования формы редактирования профиля
 editProfileForm.addEventListener('submit', formSubmitHandler);
 // функция показа попапа с помощью объекта по которому нажали
-function popupVisible(e) {
-  if(e.target == editProfileBtn) {
-    popupEditProfile.classList.toggle('popup_opened');
-    document.querySelector('.page').classList.toggle('overflow-hidden');
-  } else if(e.target == addImageBtn) {
-    popupAddImage.classList.toggle('popup_opened');
-    document.querySelector('.page').classList.toggle('overflow-hidden');
-  } else if(e.target.classList.contains('photocard__image')) {
-    popupImage.classList.toggle('popup_opened');
-    document.querySelector('.page').classList.toggle('overflow-hidden');
-  }
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.querySelector('.page').classList.add('overflow-hidden');
 }
 // Скрываем попапы с помощью функции
-function popupHidden() {
-  if(popupEditProfile.classList.contains('popup_opened')) {
-    popupEditProfile.classList.toggle('popup_opened');
-    document.querySelector('.page').classList.toggle('overflow-hidden');
-  } else if(popupAddImage.classList.contains('popup_opened')) {
-    popupAddImage.classList.toggle('popup_opened');
-    document.querySelector('.page').classList.toggle('overflow-hidden');
-  } else if(popupImage.classList.contains('popup_opened')) {
-    popupImage.classList.toggle('popup_opened');
-    document.querySelector('.page').classList.toggle('overflow-hidden');
-  }
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.querySelector('.page').classList.remove('overflow-hidden');
 }
 
 function formSubmitHandler(e) {
   e.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  popupHidden();
+  closePopup(editProfileForm);
 }
 // функция рендера карточек
 renderCard(initialCards);
