@@ -44,13 +44,13 @@ function renderCard(arr) {
 //слушатель для удаления, лайка, и открытия попапа с предпросмотром картинки
 photocardList.addEventListener('click', (e) => {
   if(e.target.classList.contains('photocard__delet-btn')) {
-    let delCard = e.target.parentNode;
+    const delCard = e.target.closest('.photocard__item');
     photocardList.removeChild(delCard);
   } else if(e.target.classList.contains('photocard__like-btn')) {
     e.target.classList.toggle('photocard__like-btn_active');
   } else if(e.target.classList.contains('photocard__image')) {
-    let url = e.target.getAttribute('src');
-    let name = e.target.parentNode.querySelector('.photocard__title').textContent;
+    const url = e.target.getAttribute('src');
+    const name = e.target.closest('.photocard__item').querySelector('.photocard__title').textContent;
     renderImagePrev(name, url);
     popupVisible(e);
   }
