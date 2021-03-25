@@ -64,13 +64,12 @@ function renderImagePrev(name, url) {
 // добавление карты
 addImageForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  let nameImage = addImageForm.querySelector('.popup__input_type_name-card');
-  let urlImage = addImageForm.querySelector('.popup__input_type_url-img');
+  const nameImage = addImageForm.querySelector('.popup__input_type_name-card');
+  const urlImage = addImageForm.querySelector('.popup__input_type_url-img');
   // передаю подготовленный объект
   renderCard([{name: nameImage.value , link: urlImage.value }]);
   // очищаю инпуты для следующего добавления
-  nameImage.value = '';
-  urlImage.value = '';
+  addImageForm.reset();
   popupHidden();
 });
 
