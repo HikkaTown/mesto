@@ -49,13 +49,15 @@ let imageCloseBtn = popupImageContainer.querySelector('.popup__close_type_image'
 // функция рендера карточек из коробки
 function renderCard(arr) {
   let template = document.querySelector('.myTemplateCard');
-  for(let i = 0; i < arr.length; i++) {
+  // рендерю в обратном порядке большой массив карточек.
+  for(let i = arr.length-1; i >= 0; i--) {
     let clone = template.content.cloneNode(true);
     let image = clone.querySelector('.photocard__image');
     image.src = arr[i].link;
     image.alt = arr[i].name;
     let nameCard = clone.querySelector('.photocard__title');
     nameCard.textContent = arr[i].name;
+    // добавляю в начало
     template.parentNode.prepend(clone);
   }
 }
@@ -89,14 +91,9 @@ addImageForm.addEventListener('submit', (e) => {
   e.preventDefault();
   let nameImage = addImageForm.querySelector('.popup__input_type_name-card');
   let urlImage = addImageForm.querySelector('.popup__input_type_url-img');
-  let template = document.querySelector('.myTemplateCard');
-  let clone = template.content.cloneNode(true);
-  let title = clone.querySelector('.photocard__title');
-  title.textContent = nameImage.value;
-  let image = clone.querySelector('.photocard__image');
-  image.src = urlImage.value;
-  image.alt = nameImage.value;
-  template.parentNode.prepend(clone);
+  // передаю подготовленный объект
+  renderCard([{name: nameImage.value , link: urlImage.value }]);
+  // очищаю инпуты для следующего добавления
   nameImage.value = '';
   urlImage.value = '';
   popupHidden();
