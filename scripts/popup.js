@@ -23,19 +23,23 @@ const popupImageCloseBtn = popupImageContainer.querySelector('.popup__close_type
 const popupImagePicture = popupImageContainer.querySelector('.popup__image');
 const popupImageText = popupImageContainer.querySelector('.popup__title-image');
 // функция рендера карточек из коробки
+
+function createCard(cardData) {
+  const cardTemplate = document.querySelector('.myTemplateCard');
+  const card = cardTemplate.content.cloneNode(true);
+  const imageCard = card.querySelector('.photocard__image');
+  imageCard.src = cardData.link;
+  imageCard.alt = cardData.name;
+  const nameCard = card.querySelector('.photocard__title');
+  nameCard.textContent = cardData.name;
+  return card;
+}
+
 function renderCard(arr) {
-  const template = document.querySelector('.myTemplateCard');
-  // рендерю в обратном порядке большой массив карточек.
-  for(let i = arr.length-1; i >= 0; i--) {
-    let clone = template.content.cloneNode(true);
-    let image = clone.querySelector('.photocard__image');
-    image.src = arr[i].link;
-    image.alt = arr[i].name;
-    let nameCard = clone.querySelector('.photocard__title');
-    nameCard.textContent = arr[i].name;
-    // добавляю в начало
-    template.parentNode.prepend(clone);
-  }
+  // переворачиваю входной массив чтобы карточки появились как нужно и отдельно добавленная картачка встала первой
+  arr.reverse().forEach(item => {
+    photocardList.prepend(createCard(item));
+  })
 }
 //слушатель для удаления, лайка, и открытия попапа с предпросмотром картинки
 photocardList.addEventListener('click', (e) => {
