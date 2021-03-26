@@ -1,5 +1,4 @@
 'use strict'
-
 // находим блок с карточками
 const photocardList = document.querySelector('.photocard__items');
 // элементы для открытия попапа профиля и его редактирования

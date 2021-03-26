@@ -13,6 +13,7 @@
   -webkit-transition: .3s;
   -o-transition: .3s;
   transition: .3s;
+  margin-top: 45px;
 }
 
 .popup__submit:hover {
