@@ -31,6 +31,22 @@ function createCard(cardData) {
   imageCard.alt = cardData.name;
   const nameCard = card.querySelector('.photocard__title');
   nameCard.textContent = cardData.name;
+  // сразу вешаю слушатель на картику, чтобы открывать попап
+  imageCard.addEventListener('click', (e) => {
+    renderImagePrev(cardData.name, cardData.link);
+    openPopup(popupImage);
+  });
+  // событие для лайка карточки
+  const likeCard = card.querySelector('.photocard__like-btn');
+  likeCard.addEventListener('click', (e) => {
+    e.target.classList.toggle('photocard__like-btn_active');
+  });
+  // событие для удаления карточки
+  const deletCard = card.querySelector('.photocard__delet-btn');
+  deletCard.addEventListener('click', (e) => {
+    const delCardBtn = e.target.closest('.photocard__item');
+    photocardList.removeChild(delCardBtn);
+  });
   return card;
 }
 
@@ -40,20 +56,7 @@ function renderCard(arr) {
     photocardList.prepend(createCard(item));
   })
 }
-//слушатель для удаления, лайка, и открытия попапа с предпросмотром картинки
-photocardList.addEventListener('click', (e) => {
-  if(e.target.classList.contains('photocard__delet-btn')) {
-    const delCard = e.target.closest('.photocard__item');
-    photocardList.removeChild(delCard);
-  } else if(e.target.classList.contains('photocard__like-btn')) {
-    e.target.classList.toggle('photocard__like-btn_active');
-  } else if(e.target.classList.contains('photocard__image')) {
-    const url = e.target.getAttribute('src');
-    const name = e.target.closest('.photocard__item').querySelector('.photocard__title').textContent;
-    renderImagePrev(name, url);
-    openPopup(popupImage);
-  }
-});
+
 // при октрытие предпросмотра подгружаем название и саму картинку
 function renderImagePrev(name, url) {
   popupImagePicture.src = url;
@@ -108,11 +111,35 @@ editProfileForm.addEventListener('submit', handleProfileSubmit);
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.querySelector('.page').classList.add('overflow-hidden');
+  popup.addEventListener('click', closeOverlayClick(popup));
+  window.addEventListener('keyup', closeKeyPopup(popup));
 }
 // Скрываем попапы с помощью функции
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.querySelector('.page').classList.remove('overflow-hidden');
+  // window.removeEventListener('keyup', closeKeyHandler);
+}
+// создаю функция для закрытия попапа по клику на оверлей с её самоуничтожением
+function closeOverlayClick(popup) {
+  return function closeHandler(e) {
+    // проверяю кликнул ли пользователь на оверлей
+    if(e.target == popup) {
+      closePopup(popup);
+      // удаляю слушатель после закрытия
+      popup.removeEventListener('click', closeHandler);
+    }
+  };
+}
+// функция закрытия попапа по нажатию на клавишу `Escape`
+function closeKeyPopup(popup) {
+  return function closeKeyHandler(e) {
+    if(e.key == `Escape`) {
+      closePopup(popup);
+      // удаление слушателя с window
+      window.removeEventListener('keydown', closeKeyHandler);
+    }
+  }
 }
 
 function handleProfileSubmit(e) {
