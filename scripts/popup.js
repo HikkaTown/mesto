@@ -23,6 +23,35 @@ const popupImagePicture = popupImageContainer.querySelector('.popup__image');
 const popupImageText = popupImageContainer.querySelector('.popup__title-image');
 // функция рендера карточек из коробки
 
+// nameInput.addEventListener('keyup', (e) => {
+//   enableValidation({
+//     formSelector: '.popup_type_edit-profile',
+//     inputSelector: '.popup__input_type_name',
+//     submitButtonSelector: '.popup__submit',
+//     inactiveButtonClass: 'popup__submit_disabled',
+//     inputErrorClass: 'popup__input_type_error',
+//     errorClass: 'popup__error_visible'
+//   });
+// });
+
+// function enableValidation(obj) {
+//   const form = document.querySelector(obj.formSelector);
+//   const input = form.querySelector(obj.inputSelector);
+//   const submitBtn = form.querySelector(obj.submitButtonSelector);
+//   if(input.value.length < 2 || input.value.length > 40) {
+//     input.classList.add(obj.inputErrorClass);
+//     form.querySelector('.popup__error').classList.add(obj.errorClass);
+//     submitBtn.disabled = true;
+//     submitBtn.classList.add(obj.inactiveButtonClass);
+//   } else {
+//     input.classList.remove(obj.inputErrorClass);
+//     form.querySelector('.popup__error').classList.remove(obj.errorClass);
+//     submitBtn.classList.remove(obj.inactiveButtonClass);
+//     submitBtn.disabled = false;
+//   }
+// }
+
+
 function createCard(cardData) {
   const cardTemplate = document.querySelector('.myTemplateCard');
   const card = cardTemplate.content.cloneNode(true);
@@ -85,61 +114,38 @@ setTimeout(() => {
 // открытие попапа с добавлением картинки
 addImageBtn.addEventListener('click', (e) => {
   openPopup(popupAddImage);
-})
-
-// скрытие редактирования профиля при клике на крестик
-editCloseBtn.addEventListener('click', (e) => {
-  closePopup(popupEditProfile);
 });
-// скрытие просмотра изображения при клике на крестик
-addCloseBtn.addEventListener('click', (e) => {
-  closePopup(popupAddImage);
-});
-// закрытие формы при клике на крестик
-popupImageCloseBtn.addEventListener('click', (e) => {
-  closePopup(popupImage);
-})
 // открытие формы при клики на кнопку редактировать
 editProfileBtn.addEventListener('click', (e) => {
   openPopup(popupEditProfile);
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-})
+});
 // обработчик событий для сохранения редактирования формы редактирования профиля
 editProfileForm.addEventListener('submit', handleProfileSubmit);
 // функция показа попапа с помощью объекта по которому нажали
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.querySelector('.page').classList.add('overflow-hidden');
-  popup.addEventListener('click', closeOverlayClick(popup));
-  window.addEventListener('keyup', closeKeyPopup(popup));
+  const closeBtn = popup.querySelector('.popup__close');
+  // колбэк для заркытия попапа нажатием клавиши или по клику на оверлей
+  // событие навешивается и удаляется после закрытия
+  function handlerExitPopup(e) {
+    if(e.target == popup || e.key == 'Escape' || e.target == closeBtn) {
+      closePopup(popup);
+      closeBtn.removeEventListener('click', handlerExitPopup);
+      popup.removeEventListener('click', handlerExitPopup);
+      window.removeEventListener('keyup', handlerExitPopup);
+    }
+  }
+  closeBtn.addEventListener('click', handlerExitPopup);
+  popup.addEventListener('click', handlerExitPopup);
+  window.addEventListener('keyup', handlerExitPopup); 
 }
 // Скрываем попапы с помощью функции
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.querySelector('.page').classList.remove('overflow-hidden');
-  // window.removeEventListener('keyup', closeKeyHandler);
-}
-// создаю функция для закрытия попапа по клику на оверлей с её самоуничтожением
-function closeOverlayClick(popup) {
-  return function closeHandler(e) {
-    // проверяю кликнул ли пользователь на оверлей
-    if(e.target == popup) {
-      closePopup(popup);
-      // удаляю слушатель после закрытия
-      popup.removeEventListener('click', closeHandler);
-    }
-  };
-}
-// функция закрытия попапа по нажатию на клавишу `Escape`
-function closeKeyPopup(popup) {
-  return function closeKeyHandler(e) {
-    if(e.key == `Escape`) {
-      closePopup(popup);
-      // удаление слушателя с window
-      window.removeEventListener('keydown', closeKeyHandler);
-    }
-  }
 }
 
 function handleProfileSubmit(e) {
