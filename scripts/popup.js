@@ -61,21 +61,27 @@ function createCard(cardData) {
   const nameCard = card.querySelector('.photocard__title');
   nameCard.textContent = cardData.name;
   // сразу вешаю слушатель на картику, чтобы открывать попап
-  imageCard.addEventListener('click', (e) => {
+  function openImage(e) {
     renderImagePrev(cardData.name, cardData.link);
     openPopup(popupImage);
-  });
+  }
+  imageCard.addEventListener('click', openImage);
   // событие для лайка карточки
   const likeCard = card.querySelector('.photocard__like-btn');
-  likeCard.addEventListener('click', (e) => {
+  function cardLikeToggle(e) {
     e.target.classList.toggle('photocard__like-btn_active');
-  });
-  // событие для удаления карточки
+  }
+  likeCard.addEventListener('click', cardLikeToggle);
+  // событие для удаления карточки которое удаляет все слушатели и саму карточку
   const deletCard = card.querySelector('.photocard__delet-btn');
-  deletCard.addEventListener('click', (e) => {
+  function deletCardListner(e) {
     const delCardBtn = e.target.closest('.photocard__item');
     photocardList.removeChild(delCardBtn);
-  });
+    imageCard.removeEventListener('click', openImage);
+    likeCard.removeEventListener('click', cardLikeToggle);
+    deletCard.removeEventListener('click', deletCardListner);
+  }
+  deletCard.addEventListener('click', deletCardListner);
   return card;
 }
 
