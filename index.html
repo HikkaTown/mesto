@@ -40,9 +40,9 @@
         <button class="popup__close popup__close_type_edit-close" type="button"></button>
         <h2 class="popup__title">Радактировать профиля</h2>
         <input class="popup__input popup__input_type_name" type="text" name="Name-Profile" >
-        <p class="popup__error">Длинна должна быть от 2 до 40 символов.</p>
+        <p class="popup__error popup__error_type_name-profile">Длинна должна быть от 2 до 40 символов.</p>
         <input class="popup__input popup__input_type_job" type="text" name="Job-Profile" >
-        <p class="popup__error">Длинна должна быть от 2 до 200 символов.</p>
+        <p class="popup__error popup__error_type_job-profile">Длинна должна быть от 2 до 200 символов.</p>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
     </div>
@@ -51,9 +51,9 @@
         <button type="button" class="popup__close popup__close_type_add-form"></button>
         <h2 class="popup__title">Новое место</h2>
         <input class="popup__input popup__input_type_name-card" type="text" name="Name-Card" placeholder="Название">
-        <p class="popup__error">Длинна должна быть от 1 до 30 символов.</p>
-        <input class="popup__input popup__input_type_url-img" type="text" name="Url-Image" placeholder="Ссылка на картинку">
-        <p class="popup__error">Тут должна быть ссылка.</p>
+        <p class="popup__error popup__error_type_name-card">Длинна должна быть от 1 до 30 символов.</p>
+        <input class="popup__input popup__input_type_url-img" type="url" name="Url-Image" placeholder="Ссылка на картинку">
+        <p class="popup__error popup__error_type_url-image">Тут должна быть ссылка.</p>
         <button class="popup__submit" type="submit">Создать</button>
       </form>
     </div>
@@ -70,5 +70,6 @@
   </footer>
   <script src="./scripts/initial-cards.js"></script>
   <script src="./scripts/popup.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>

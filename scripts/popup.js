@@ -22,36 +22,6 @@ const popupImageCloseBtn = popupImageContainer.querySelector('.popup__close_type
 const popupImagePicture = popupImageContainer.querySelector('.popup__image');
 const popupImageText = popupImageContainer.querySelector('.popup__title-image');
 // функция рендера карточек из коробки
-
-// nameInput.addEventListener('keyup', (e) => {
-//   enableValidation({
-//     formSelector: '.popup_type_edit-profile',
-//     inputSelector: '.popup__input_type_name',
-//     submitButtonSelector: '.popup__submit',
-//     inactiveButtonClass: 'popup__submit_disabled',
-//     inputErrorClass: 'popup__input_type_error',
-//     errorClass: 'popup__error_visible'
-//   });
-// });
-
-// function enableValidation(obj) {
-//   const form = document.querySelector(obj.formSelector);
-//   const input = form.querySelector(obj.inputSelector);
-//   const submitBtn = form.querySelector(obj.submitButtonSelector);
-//   if(input.value.length < 2 || input.value.length > 40) {
-//     input.classList.add(obj.inputErrorClass);
-//     form.querySelector('.popup__error').classList.add(obj.errorClass);
-//     submitBtn.disabled = true;
-//     submitBtn.classList.add(obj.inactiveButtonClass);
-//   } else {
-//     input.classList.remove(obj.inputErrorClass);
-//     form.querySelector('.popup__error').classList.remove(obj.errorClass);
-//     submitBtn.classList.remove(obj.inactiveButtonClass);
-//     submitBtn.disabled = false;
-//   }
-// }
-
-
 function createCard(cardData) {
   const cardTemplate = document.querySelector('.myTemplateCard');
   const card = cardTemplate.content.cloneNode(true);
@@ -106,7 +76,7 @@ addImageForm.addEventListener('submit', (e) => {
   // передаю подготовленный объект
   renderCard([{name: nameImage.value , link: urlImage.value }]);
   // очищаю инпуты для следующего добавления
-  addImageForm.reset();
+  // addImageForm.reset();
   closePopup(popupAddImage);
 });
 
@@ -152,7 +122,33 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.querySelector('.page').classList.remove('overflow-hidden');
+  // достаю переменную формы из popup`a
+  const form = popup.querySelector('form.popup__container');
+  // проверяю нашлась ли там форма и вызываю сброс
+  form ? resetForm(form) : '';
 }
+// форма сбрасывает ошибки и т.д после закрытия формы
+function resetForm(form) {
+  form.reset();
+  const formInput = form.querySelectorAll('.popup__input');
+  const warrning = form.querySelectorAll('.popup__error');
+  const submitButton = form.querySelector('.popup__submit');
+  formInput.forEach((item) => {
+    if(item.classList.contains('popup__input_type_error')) {
+      item.classList.remove('popup__input_type_error');
+    }
+  });
+  warrning.forEach((item) => {
+    if(item.classList.contains('popup__error_visible')) {
+      item.classList.remove('popup__error_visible');
+    }
+  });
+  if(submitButton.classList.contains('popup__submit_disabled')) {
+    submitButton.classList.remove('popup__submit_disabled');
+    submitButton.disabled = false;
+  }
+}
+
 
 function handleProfileSubmit(e) {
   e.preventDefault();
