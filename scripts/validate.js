@@ -67,7 +67,7 @@ function enableValidation(sett) {
     const submitButton = forms[1].querySelector(sett.submitButtonSelector);
     let flag = true;
     if(inputs[0].value.length < 2 || inputs[0].value.length > 30) {
-      flag = false ;
+      flag = false;
       errorsContent[0].classList.add(sett.errorVisible);
       inputs[0].classList.add(sett.inputErrorClass);
     } else {
@@ -75,15 +75,16 @@ function enableValidation(sett) {
       inputs[0].classList.remove(sett.inputErrorClass);
       flag = flag ? true : false;
     }
-    if(inputs[1].validity.valid) {
+    if(inputs[1].validity.valid && inputs[1].value.length > 0) {
       flag = flag ? true : false;
       errorsContent[1].classList.remove(sett.errorVisible);
       inputs[1].classList.remove(sett.inputErrorClass);
     } else {
       errorsContent[1].classList.add(sett.errorVisible);
       inputs[1].classList.add(sett.inputErrorClass);
-      flag = false ;
+      flag = false 
     }
+    // делаю кнопку отправки не активной или активной
     if(!flag) {
       submitButton.classList.add(sett.inactiveButtonClass);
       submitButton.disabled = true;

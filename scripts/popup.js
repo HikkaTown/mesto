@@ -147,6 +147,10 @@ function resetForm(form) {
     submitButton.classList.remove('popup__submit_disabled');
     submitButton.disabled = false;
   }
+  if(form.classList.contains('popup__container_type_add-form')) {
+    submitButton.classList.add('popup__submit_disabled');
+    submitButton.disabled = true;
+  }
 }
 
 
