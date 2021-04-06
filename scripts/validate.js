@@ -33,26 +33,26 @@ function enableValidation(sett) {
     const inputs = forms[0].querySelectorAll(sett.inputSelector);
     const errorsContent = forms[0].querySelectorAll(sett.errorSelector);
     const submitButton = forms[0].querySelector(sett.submitButtonSelector);
-    let flag = true;
+    let validFlag = true;
     if(inputs[0].value.length < 2 || inputs[0].value.length > 40) {
-      flag = false ;
+      validFlag = false ;
       errorsContent[0].classList.add(sett.errorVisible);
       inputs[0].classList.add(sett.inputErrorClass);
     } else {
       errorsContent[0].classList.remove(sett.errorVisible);
       inputs[0].classList.remove(sett.inputErrorClass);
-      flag = flag ? true : false;
+      validFlag = validFlag ? true : false;
     }
     if(inputs[1].value.length < 2 || inputs[1].value.length > 200) {
-      flag = false ;
+      validFlag = false ;
       errorsContent[1].classList.add(sett.errorVisible);
       inputs[1].classList.add(sett.inputErrorClass);
     } else {
       errorsContent[1].classList.remove(sett.errorVisible);
       inputs[1].classList.remove(sett.inputErrorClass);
-      flag = flag ? true : false;
+      validFlag = validFlag ? true : false;
     }
-    if(!flag) {
+    if(!validFlag) {
       submitButton.classList.add(sett.inactiveButtonClass);
       submitButton.disabled = true;
     } else {
@@ -65,27 +65,27 @@ function enableValidation(sett) {
     const inputs = forms[1].querySelectorAll(sett.inputSelector);
     const errorsContent = forms[1].querySelectorAll(sett.errorSelector);
     const submitButton = forms[1].querySelector(sett.submitButtonSelector);
-    let flag = true;
-    if(inputs[0].value.length < 2 || inputs[0].value.length > 30) {
-      flag = false;
+    let validFlag = true;
+    if(inputs[0].value.length < 1 || inputs[0].value.length > 30) {
+      validFlag = false;
       errorsContent[0].classList.add(sett.errorVisible);
       inputs[0].classList.add(sett.inputErrorClass);
     } else {
       errorsContent[0].classList.remove(sett.errorVisible);
       inputs[0].classList.remove(sett.inputErrorClass);
-      flag = flag ? true : false;
+      validFlag = validFlag ? true : false;
     }
     if(inputs[1].validity.valid && inputs[1].value.length > 0) {
-      flag = flag ? true : false;
+      validFlag = validFlag ? true : false;
       errorsContent[1].classList.remove(sett.errorVisible);
       inputs[1].classList.remove(sett.inputErrorClass);
     } else {
       errorsContent[1].classList.add(sett.errorVisible);
       inputs[1].classList.add(sett.inputErrorClass);
-      flag = false 
+      validFlag = false 
     }
     // делаю кнопку отправки не активной или активной
-    if(!flag) {
+    if(!validFlag) {
       submitButton.classList.add(sett.inactiveButtonClass);
       submitButton.disabled = true;
     } else {
