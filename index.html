@@ -51,10 +51,10 @@
         <button type="button" class="popup__close popup__close_type_add-form"></button>
         <h2 class="popup__title">Новое место</h2>
         <input class="popup__input popup__input_type_name-card" id="name-card-input" required minlength="2" maxlength="30" type="text" name="Name-Card" placeholder="Название">
-        <span class="popup__error name-card-input-error">Длинна должна быть от 1 до 30 символов.</span>
+        <span class="popup__error name-card-input-error"></span>
         <input class="popup__input popup__input_type_url-img" id="url-img-input" required type="url" name="Url-Image" placeholder="Ссылка на картинку">
         <span class="popup__error url-img-input-error"></span>
-        <button class="popup__submit" type="submit">Создать</button>
+        <button class="popup__submit popup__submit_disabled" disabled="true" type="submit">Создать</button>
       </form>
     </div>
     <div class="popup popup_type_image">

@@ -58,7 +58,6 @@ function enableValidation(formData) {
   function setEventListeners(formElement) {
     const inputList = Array.from(formElement.querySelectorAll(formData.inputSelector));
     const buttonElement = formElement.querySelector('.popup__submit');
-    toggleButtonState(inputList, buttonElement);
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         isValid(formElement, inputElement);
