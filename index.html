@@ -39,9 +39,9 @@
       <form action="#" class="popup__container popup__container_type_edit-form" name="Edit-Profile" novalidate>
         <button class="popup__close popup__close_type_edit-close" type="button"></button>
         <h2 class="popup__title">Радактировать профиля</h2>
-        <input class="popup__input popup__input_type_name" id="name-input" type="text" minlength="2" maxlength="40" name="Name-Profile" >
+        <input class="popup__input popup__input_type_name" id="name-input" required type="text" minlength="2" maxlength="40" name="Name-Profile" >
         <span class="popup__error name-input-error"></span>
-        <input class="popup__input popup__input_type_job" id="job-input" type="text" minlength="2" maxlength="200" name="Job-Profile" >
+        <input class="popup__input popup__input_type_job" id="job-input" required type="text" minlength="2" maxlength="200" name="Job-Profile" >
         <span class="popup__error job-input-error"></span>
         <button class="popup__submit" type="submit">Сохранить</button>
       </form>
@@ -50,11 +50,11 @@
       <form action="#" name="Add-Card" class="popup__container popup__container_type_add-form" novalidate>
         <button type="button" class="popup__close popup__close_type_add-form"></button>
         <h2 class="popup__title">Новое место</h2>
-        <input class="popup__input popup__input_type_name-card" id="name-card-input" minlength="2" maxlength="30" type="text" name="Name-Card" placeholder="Название">
+        <input class="popup__input popup__input_type_name-card" id="name-card-input" required minlength="2" maxlength="30" type="text" name="Name-Card" placeholder="Название">
         <span class="popup__error name-card-input-error">Длинна должна быть от 1 до 30 символов.</span>
-        <input class="popup__input popup__input_type_url-img" id="url-img-input" minlength="1" type="url" name="Url-Image" placeholder="Ссылка на картинку">
+        <input class="popup__input popup__input_type_url-img" id="url-img-input" required type="url" name="Url-Image" placeholder="Ссылка на картинку">
         <span class="popup__error url-img-input-error"></span>
-        <button class="popup__submit popup__submit_disabled" disabled="true" type="submit">Создать</button>
+        <button class="popup__submit" type="submit">Создать</button>
       </form>
     </div>
     <div class="popup popup_type_image">
