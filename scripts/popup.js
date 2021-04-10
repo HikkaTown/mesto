@@ -14,6 +14,8 @@ const editCloseBtn = document.querySelector('.popup__close_type_edit-close');
 const addImageBtn = document.querySelector('.profile__add-btn');
 const popupAddImage = document.querySelector('.popup_type_add-card');
 const addImageForm = document.querySelector('.popup__container_type_add-form');
+const nameImage = addImageForm.querySelector('.popup__input_type_name-card');
+const urlImage = addImageForm.querySelector('.popup__input_type_url-img');
 const addCloseBtn = document.querySelector('.popup__close_type_add-form');
 // попап с картинкой
 const popupImage = document.querySelector('.popup_type_image');
@@ -21,9 +23,42 @@ const popupImageContainer = popupImage.querySelector('.popup__container_type_ima
 const popupImageCloseBtn = popupImageContainer.querySelector('.popup__close_type_image');
 const popupImagePicture = popupImageContainer.querySelector('.popup__image');
 const popupImageText = popupImageContainer.querySelector('.popup__title-image');
+const cardTemplate = document.querySelector('.myTemplateCard');
+
+function openImage(name, link, popupName) {
+  renderImagePrev(name, link);
+  openPopup(popupName);
+}
+
+function cardLikeToggle(e) {
+  e.target.classList.toggle('photocard__like-btn_active');
+}
+// удаление картчоки
+function deletCard(e) {
+  const delCardBtn = e.target.closest('.photocard__item');
+  photocardList.removeChild(delCardBtn);
+}
+
+function setListenerExitPopup(popup) {
+  const closeBtn = popup.querySelector('.popup__close');
+  popup.addEventListener('click', handlerExitPopup);
+  closeBtn.addEventListener('click', handlerExitPopup);
+  window.addEventListener('keyup', handlerExitPopup);
+  function handlerExitPopup(e) {
+    if(e.target == popup || e.key == 'Escape' || e.target == closeBtn) {
+      closePopup(popup);
+      removeListenerExitPopup();
+    }
+  }
+  function removeListenerExitPopup() {
+    popup.removeEventListener('click', handlerExitPopup);
+    closeBtn.removeEventListener('click', handlerExitPopup);
+    window.removeEventListener('keyup', handlerExitPopup);
+  }
+}
+
 // функция рендера карточек из коробки
 function createCard(cardData) {
-  const cardTemplate = document.querySelector('.myTemplateCard');
   const card = cardTemplate.content.cloneNode(true);
   const imageCard = card.querySelector('.photocard__image');
   imageCard.src = cardData.link;
@@ -31,27 +66,14 @@ function createCard(cardData) {
   const nameCard = card.querySelector('.photocard__title');
   nameCard.textContent = cardData.name;
   // сразу вешаю слушатель на картику, чтобы открывать попап
-  function openImage(e) {
-    renderImagePrev(cardData.name, cardData.link);
-    openPopup(popupImage);
-  }
-  imageCard.addEventListener('click', openImage);
-  // событие для лайка карточки
+  // ---- вынес openImage
+  imageCard.addEventListener('click', (e) => {
+    openImage(cardData.name, cardData.link, popupImage);
+  });
   const likeCard = card.querySelector('.photocard__like-btn');
-  function cardLikeToggle(e) {
-    e.target.classList.toggle('photocard__like-btn_active');
-  }
   likeCard.addEventListener('click', cardLikeToggle);
-  // событие для удаления карточки которое удаляет все слушатели и саму карточку
-  const deletCard = card.querySelector('.photocard__delet-btn');
-  function deletCardListner(e) {
-    const delCardBtn = e.target.closest('.photocard__item');
-    photocardList.removeChild(delCardBtn);
-    imageCard.removeEventListener('click', openImage);
-    likeCard.removeEventListener('click', cardLikeToggle);
-    deletCard.removeEventListener('click', deletCardListner);
-  }
-  deletCard.addEventListener('click', deletCardListner);
+  const trashIcon = card.querySelector('.photocard__delet-btn');
+  trashIcon.addEventListener('click', deletCard);
   return card;
 }
 
@@ -71,8 +93,6 @@ function renderImagePrev(name, url) {
 // добавление карты
 addImageForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const nameImage = addImageForm.querySelector('.popup__input_type_name-card');
-  const urlImage = addImageForm.querySelector('.popup__input_type_url-img');
   // передаю подготовленный объект
   renderCard([{name: nameImage.value , link: urlImage.value }]);
   // очищаю инпуты для следующего добавления
@@ -99,57 +119,45 @@ editProfileBtn.addEventListener('click', (e) => {
 });
 // обработчик событий для сохранения редактирования формы редактирования профиля
 editProfileForm.addEventListener('submit', handleProfileSubmit);
-// функция показа попапа с помощью объекта по которому нажали
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.querySelector('.page').classList.add('overflow-hidden');
-  const closeBtn = popup.querySelector('.popup__close');
-  // колбэк для заркытия попапа нажатием клавиши или по клику на оверлей
-  // событие навешивается и удаляется после закрытия
-  function handlerExitPopup(e) {
-    if(e.target == popup || e.key == 'Escape' || e.target == closeBtn) {
-      closePopup(popup);
-      closeBtn.removeEventListener('click', handlerExitPopup);
-      popup.removeEventListener('click', handlerExitPopup);
-      window.removeEventListener('keyup', handlerExitPopup);
-    }
-  }
-  closeBtn.addEventListener('click', handlerExitPopup);
-  popup.addEventListener('click', handlerExitPopup);
-  window.addEventListener('keyup', handlerExitPopup); 
+  // функция вешает обработчики на нужные элементы, и удаляет слушателя после срабатывания через замыкание
+  setListenerExitPopup(popup);
 }
 // Скрываем попапы с помощью функции
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.querySelector('.page').classList.remove('overflow-hidden');
-  // достаю переменную формы из popup`a
-  const form = popup.querySelector('form.popup__container');
-  // проверяю нашлась ли там форма и вызываю сброс
-  form ? resetForm(form) : '';
+  resetForm(popup, settings);
 }
 // форма сбрасывает ошибки и т.д после закрытия формы
-function resetForm(form) {
-  form.reset();
-  const formInput = form.querySelectorAll('.popup__input');
-  const warrning = form.querySelectorAll('.popup__error');
-  const submitButton = form.querySelector('.popup__submit');
-  formInput.forEach((item) => {
-    if(item.classList.contains('popup__input_type_error')) {
-      item.classList.remove('popup__input_type_error');
+function resetForm(popup, selectors) {
+  const form = popup.querySelector(selectors.formSelector);
+  if(form) {
+    form.reset();
+    const formInput = form.querySelectorAll(selectors.inputSelector);
+    const warrning = form.querySelectorAll(selectors.errorSelector);
+    const submitButton = form.querySelector(selectors.submitButtonSelector);
+    formInput.forEach((item) => {
+      if(item.classList.contains(selectors.inputErrorClass)) {
+        item.classList.remove(selectors.inputErrorClass);
+      }
+    });
+    warrning.forEach((item) => {
+      if(item.classList.contains(selectors.errorVisible)) {
+        item.classList.remove(selectors.errorVisible);
+      }
+    });
+    if(submitButton.classList.contains(selectors.inactiveButtonClass)) {
+      submitButton.classList.remove(selectors.inactiveButtonClass);
+      submitButton.disabled = false;
     }
-  });
-  warrning.forEach((item) => {
-    if(item.classList.contains('popup__error_visible')) {
-      item.classList.remove('popup__error_visible');
+    if(form.classList.contains('popup__container_type_add-form')) {
+      submitButton.classList.add(selectors.inactiveButtonClass);
+      submitButton.disabled = true;
     }
-  });
-  if(submitButton.classList.contains('popup__submit_disabled')) {
-    submitButton.classList.remove('popup__submit_disabled');
-    submitButton.disabled = false;
-  }
-  if(form.classList.contains('popup__container_type_add-form')) {
-    submitButton.classList.add('popup__submit_disabled');
-    submitButton.disabled = true;
   }
 }
 
