@@ -66,7 +66,6 @@ function createCard(cardData) {
   const nameCard = card.querySelector('.photocard__title');
   nameCard.textContent = cardData.name;
   // сразу вешаю слушатель на картику, чтобы открывать попап
-  // ---- вынес openImage
   imageCard.addEventListener('click', (e) => {
     openImage(cardData.name, cardData.link, popupImage);
   });
