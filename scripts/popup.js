@@ -145,7 +145,7 @@ editProfileForm.addEventListener("submit", handleProfileSubmit);
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.querySelector(".page").classList.add("overflow-hidden");
-  // функция вешает обработчики на нужные элементы, и удаляет слушателя после срабатывания через замыкание
+  // функция вешает обработчики на нужные элементы
   setListenerExitPopup(popup);
 }
 // Скрываем попапы с помощью функции
