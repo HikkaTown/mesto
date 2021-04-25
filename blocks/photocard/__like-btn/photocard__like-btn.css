@@ -16,3 +16,9 @@
 .photocard__like-btn:hover {
   opacity: .5;
 }
+/* чтобы на планшетах и телефонах иконка лайка ставилась сразу без ховера */
+@media screen and (max-width: 768px) {
+  .photocard__like-btn:hover {
+    opacity: 1;
+  }
+}

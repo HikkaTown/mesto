@@ -1,4 +1,6 @@
 "use strict";
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 // находим блок с карточками
 const photocardList = document.querySelector(".photocard__items");
 // элементы для открытия попапа профиля и его редактирования
@@ -24,12 +26,42 @@ const popupImage = document.querySelector(".popup_type_image");
 const popupImageContainer = popupImage.querySelector(
   ".popup__container_type_image"
 );
-const popupImageCloseBtn = popupImageContainer.querySelector(
-  ".popup__close_type_image"
-);
-const popupImagePicture = popupImageContainer.querySelector(".popup__image");
-const popupImageText = popupImageContainer.querySelector(".popup__title-image");
-const cardTemplate = document.querySelector(".myTemplateCard");
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+// объект параметров для сброса формы
+const resetFormSettings = {
+  formSelector: 'form.popup__container',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorSelector: '.popup__error',
+  errorVisible: 'popup__error_visible'
+};
 
 // слушатель на крестики для попапов отдельно
 editCloseBtn.addEventListener("click", (e) => {
@@ -37,9 +69,6 @@ editCloseBtn.addEventListener("click", (e) => {
 });
 addCloseBtn.addEventListener("click", (e) => {
   closePopup(popupAddImage);
-});
-popupImageCloseBtn.addEventListener("click", (e) => {
-  closePopup(popupImage);
 });
 // колбэк для закрытия попапа по клику на оверлей или нажатия Escape
 function handlerExitPopup(e) {
@@ -54,56 +83,20 @@ function removeListenerExitPopup(popup) {
   window.removeEventListener("keyup", handlerExitPopup);
 }
 
-function openImage(name, link, popupName) {
-  renderImagePrev(name, link);
-  openPopup(popupName);
-}
-
-function cardLikeToggle(e) {
-  e.target.classList.toggle("photocard__like-btn_active");
-}
-// удаление картчоки
-function deletCard(e) {
-  const delCardBtn = e.target.closest(".photocard__item");
-  photocardList.removeChild(delCardBtn);
-}
-
+// удалить
 function setListenerExitPopup(popup) {
   popup.addEventListener("click", handlerExitPopup);
   window.addEventListener("keyup", handlerExitPopup);
 }
 
-// функция рендера карточек из коробки
-function createCard(cardData) {
-  const card = cardTemplate.content.cloneNode(true);
-  const imageCard = card.querySelector(".photocard__image");
-  imageCard.src = cardData.link;
-  imageCard.alt = cardData.name;
-  const nameCard = card.querySelector(".photocard__title");
-  nameCard.textContent = cardData.name;
-  // сразу вешаю слушатель на картику, чтобы открывать попап
-  imageCard.addEventListener("click", (e) => {
-    openImage(cardData.name, cardData.link, popupImage);
-  });
-  const likeCard = card.querySelector(".photocard__like-btn");
-  likeCard.addEventListener("click", cardLikeToggle);
-  const trashIcon = card.querySelector(".photocard__delet-btn");
-  trashIcon.addEventListener("click", deletCard);
-  return card;
-}
-
-function renderCard(arr) {
+// добавление карточек
+function renderCard(cardData) {
   // переворачиваю входной массив чтобы карточки появились как нужно и отдельно добавленная картачка встала первой
-  arr.reverse().forEach((item) => {
-    photocardList.prepend(createCard(item));
+  cardData.reverse().forEach((data) => {
+    const card = new Card(data, '.myTemplateCard');
+    const cardElement = card.generateCard();
+    photocardList.prepend(cardElement);
   });
-}
-
-// при октрытие предпросмотра подгружаем название и саму картинку
-function renderImagePrev(name, url) {
-  popupImagePicture.src = url;
-  popupImagePicture.alt = name;
-  popupImageText.textContent = name;
 }
 // добавление карты
 addImageForm.addEventListener("submit", (e) => {
@@ -114,25 +107,23 @@ addImageForm.addEventListener("submit", (e) => {
   // addImageForm.reset();
   closePopup(popupAddImage);
 });
-
 // добавляю класс с анимацией чтобы не было рывков при загрузке страницы
 setTimeout(() => {
   popupEditProfile.classList.add("animation-transition");
   popupAddImage.classList.add("animation-transition");
   popupImage.classList.add("animation-transition");
 }, 500);
-
 // открытие попапа с добавлением картинки
 addImageBtn.addEventListener("click", (e) => {
   // очищение формы
-  resetForm(popupAddImage, settings);
+  resetForm(popupAddImage, resetFormSettings);
   // открытие попапа
   openPopup(popupAddImage);
 });
 // открытие формы при клики на кнопку редактировать
 editProfileBtn.addEventListener("click", (e) => {
   // очищение формы
-  resetForm(popupEditProfile, settings);
+  resetForm(popupEditProfile, resetFormSettings);
   // открытие попапа
   openPopup(popupEditProfile);
   // подготовка инпутов
@@ -190,3 +181,17 @@ function handleProfileSubmit(e) {
 }
 // функция рендера карточек
 renderCard(initialCards);
+const formList = document.querySelectorAll('form.popup__container').forEach((formElement) => {
+  const validForm = new FormValidator(
+    {
+      inputSelector: '.popup__input',
+      submitButtonSelector: '.popup__submit',
+      inactiveButtonClass: 'popup__submit_disabled',
+      inputErrorClass: 'popup__input_type_error',
+      errorSelector: '.popup__error',
+      errorVisible: 'popup__error_visible'
+    },
+    formElement
+  );
+  validForm.enableValidation();
+});
