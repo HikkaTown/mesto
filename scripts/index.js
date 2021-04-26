@@ -23,7 +23,6 @@ const urlImage = addImageForm.querySelector(".popup__input_type_url-img");
 const addCloseBtn = document.querySelector(".popup__close_type_add-form");
 // попап с картинкой
 const popupImage = document.querySelector(".popup_type_image");
-
 // слушатель на крестики для попапов отдельно
 editCloseBtn.addEventListener("click", (e) => {
   closePopup(popupEditProfile);
@@ -43,8 +42,7 @@ function removeListenerExitPopup(popup) {
   popup.removeEventListener("click", handlerExitPopup);
   window.removeEventListener("keyup", handlerExitPopup);
 }
-
-// удалить
+// удалить слушатели
 function setListenerExitPopup(popup) {
   popup.addEventListener("click", handlerExitPopup);
   window.addEventListener("keyup", handlerExitPopup);
@@ -93,7 +91,7 @@ editProfileBtn.addEventListener("click", (e) => {
 });
 // обработчик событий для сохранения редактирования формы редактирования профиля
 editProfileForm.addEventListener("submit", handleProfileSubmit);
-
+// отдельная функция для генерации карточки
 function openPicture(name, link) {
   const popup = document.querySelector('.popup_type_image');
   const popupImage = popup.querySelector('.popup__image');

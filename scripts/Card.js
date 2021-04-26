@@ -27,7 +27,6 @@ class Card {
   _setEventListeners() {
     this._imageElement.addEventListener('click', () => {
       this._handleOpenPopup(this._name, this._link);
-      // this._setSettingsPopup(this._name, this._link);
     });
     this._likeButton.addEventListener('click', () => {
       this._handleLikeCard();
