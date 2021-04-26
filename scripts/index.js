@@ -26,17 +26,6 @@ const popupImage = document.querySelector(".popup_type_image");
 const popupImageContainer = popupImage.querySelector(
   ".popup__container_type_image"
 );
-// объект параметров для сброса формы
-const resetFormSettings = {
-  formSelector: 'form.popup__container',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorSelector: '.popup__error',
-  errorVisible: 'popup__error_visible'
-};
-
 // слушатель на крестики для попапов отдельно
 editCloseBtn.addEventListener("click", (e) => {
   closePopup(popupEditProfile);
@@ -90,14 +79,14 @@ setTimeout(() => {
 // открытие попапа с добавлением картинки
 addImageBtn.addEventListener("click", (e) => {
   // очищение формы
-  resetForm(popupAddImage, resetFormSettings);
+  formAddCard.resetValidation();
   // открытие попапа
   openPopup(popupAddImage);
 });
 // открытие формы при клики на кнопку редактировать
 editProfileBtn.addEventListener("click", (e) => {
   // очищение формы
-  resetForm(popupEditProfile, resetFormSettings);
+  formEditProfile.resetValidation();
   // открытие попапа
   openPopup(popupEditProfile);
   // подготовка инпутов
@@ -120,32 +109,6 @@ function closePopup(popup) {
   // удаляем слушатель с window и оверлея popup
   removeListenerExitPopup(popup);
 }
-// форма сбрасывает ошибки и т.д после закрытия формы
-function resetForm(popup, selectors) {
-  const form = popup.querySelector(selectors.formSelector);
-  form.reset();
-  const formInput = form.querySelectorAll(selectors.inputSelector);
-  const warrning = form.querySelectorAll(selectors.errorSelector);
-  const submitButton = form.querySelector(selectors.submitButtonSelector);
-  formInput.forEach((item) => {
-    if (item.classList.contains(selectors.inputErrorClass)) {
-      item.classList.remove(selectors.inputErrorClass);
-    }
-  });
-  warrning.forEach((item) => {
-    if (item.classList.contains(selectors.errorVisible)) {
-      item.classList.remove(selectors.errorVisible);
-    }
-  });
-  if (submitButton.classList.contains(selectors.inactiveButtonClass)) {
-    submitButton.classList.remove(selectors.inactiveButtonClass);
-    submitButton.disabled = false;
-  }
-  if (form.classList.contains("popup__container_type_add-form")) {
-    submitButton.classList.add(selectors.inactiveButtonClass);
-    submitButton.disabled = true;
-  }
-}
 
 function handleProfileSubmit(e) {
   e.preventDefault();
@@ -155,17 +118,26 @@ function handleProfileSubmit(e) {
 }
 // функция рендера карточек
 renderCard(initialCards);
-const formList = document.querySelectorAll('form.popup__container').forEach((formElement) => {
-  const validForm = new FormValidator(
-    {
-      inputSelector: '.popup__input',
-      submitButtonSelector: '.popup__submit',
-      inactiveButtonClass: 'popup__submit_disabled',
-      inputErrorClass: 'popup__input_type_error',
-      errorSelector: '.popup__error',
-      errorVisible: 'popup__error_visible'
-    },
-    formElement
-  );
-  validForm.enableValidation();
-});
+
+
+const formEditProfile = new FormValidator({
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorSelector: '.popup__error',
+  errorVisible: 'popup__error_visible'
+},
+editProfileForm);
+const formAddCard = new FormValidator({
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorSelector: '.popup__error',
+  errorVisible: 'popup__error_visible'
+},
+addImageForm);
+
+formEditProfile.enableValidation();
+formAddCard.enableValidation();

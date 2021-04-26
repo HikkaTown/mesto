@@ -8,6 +8,7 @@ class FormValidator {
     this._inactiveButtonClass = formData.inactiveButtonClass;
     this._inputErrorClass = formData.inputErrorClass;
     this._errorSelector = formData.errorSelector;
+    this._errorList = this._formElement.querySelectorAll(this._errorSelector);
     this._errorVisible = formData.errorVisible;
   }
 
@@ -56,6 +57,28 @@ class FormValidator {
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorVisible);
     errorElement.textContent = '';
+  }
+
+  resetValidation() {
+    this._formElement.reset();
+    this._inputList.forEach((item) => {
+      if (item.classList.contains(this._inputErrorClass)) {
+        item.classList.remove(this._inputErrorClass);
+      }
+    });
+    this._errorList.forEach((item) => {
+      if (item.classList.contains(this._errorVisible)) {
+        item.classList.remove(this._errorVisible);
+      }
+    });
+    if (this._buttonElement.classList.contains(this._inactiveButtonClass)) {
+      this._buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.disabled = false;
+    }
+    if (this._formElement.classList.contains("popup__container_type_add-form")) {
+      this._buttonElement.classList.add(this._inactiveButtonClass);
+      this._buttonElement.disabled = true;
+    }
   }
 
   enableValidation() {
