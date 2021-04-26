@@ -17,7 +17,7 @@ class Card {
   }
   // like card
   _handleLikeCard() {
-    this._element.querySelector('.photocard__like-btn').classList.toggle('photocard__like-btn_active');
+    this._likeButton.classList.toggle('photocard__like-btn_active');
   }
   // deletCard
   _handleDeletCard() {
@@ -25,25 +25,29 @@ class Card {
   }
   // установка слушателей
   _setEventListeners() {
-    this._element.querySelector('.photocard__image').addEventListener('click', () => {
+    this._imageElement.addEventListener('click', () => {
       this._handleOpenPopup(this._name, this._link);
       // this._setSettingsPopup(this._name, this._link);
     });
-    this._element.querySelector('.photocard__like-btn').addEventListener('click', () => {
+    this._likeButton.addEventListener('click', () => {
       this._handleLikeCard();
     });
-    this._element.querySelector('.photocard__delet-btn').addEventListener('click', () => {
+    this._deleteButton.addEventListener('click', () => {
       this._handleDeletCard();
     });
   }
   // публичный метод генерирущий карточку, возвращает dom element
   generateCard() {
     this._element = this._getTemplate();
+    this._imageElement = this._element.querySelector('.photocard__image');
+    this._titleElement = this._element.querySelector('.photocard__title');
+    this._likeButton = this._element.querySelector('.photocard__like-btn');
+    this._deleteButton = this._element.querySelector('.photocard__delet-btn');
     this._setEventListeners();
 
-    this._element.querySelector('.photocard__image').src = this._link;
-    this._element.querySelector('.photocard__image').alt = this._name;
-    this._element.querySelector('.photocard__title').textContent = this._name;
+    this._imageElement.src = this._link;
+    this._imageElement.alt = this._name;
+    this._titleElement.textContent = this._name;
 
     return this._element;
   }
