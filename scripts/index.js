@@ -54,7 +54,7 @@ function setListenerExitPopup(popup) {
 function renderCards(cardsData) {
   // переворачиваю входной массив чтобы карточки появились как нужно и отдельно добавленная картачка встала первой
   cardsData.reverse().forEach((data) => {
-    const card = new Card(data, '.myTemplateCard');
+    const card = new Card(data, '.myTemplateCard', openPicture);
     const cardElement = card.generateCard();
     photocardList.prepend(cardElement);
   });
@@ -93,6 +93,16 @@ editProfileBtn.addEventListener("click", (e) => {
 });
 // обработчик событий для сохранения редактирования формы редактирования профиля
 editProfileForm.addEventListener("submit", handleProfileSubmit);
+
+function openPicture(name, link) {
+  const popup = document.querySelector('.popup_type_image');
+  const popupImage = popup.querySelector('.popup__image');
+  const popupTitle = popup.querySelector('.popup__title-image');
+  popupImage.src = link;
+  popupImage.alt = name;
+  popupTitle.textContent = name;
+  openPopup(popup);
+}
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
