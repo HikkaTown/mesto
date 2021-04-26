@@ -23,9 +23,7 @@ const urlImage = addImageForm.querySelector(".popup__input_type_url-img");
 const addCloseBtn = document.querySelector(".popup__close_type_add-form");
 // попап с картинкой
 const popupImage = document.querySelector(".popup_type_image");
-const popupImageContainer = popupImage.querySelector(
-  ".popup__container_type_image"
-);
+
 // слушатель на крестики для попапов отдельно
 editCloseBtn.addEventListener("click", (e) => {
   closePopup(popupEditProfile);
@@ -53,9 +51,9 @@ function setListenerExitPopup(popup) {
 }
 
 // добавление карточек
-function renderCard(cardData) {
+function renderCards(cardsData) {
   // переворачиваю входной массив чтобы карточки появились как нужно и отдельно добавленная картачка встала первой
-  cardData.reverse().forEach((data) => {
+  cardsData.reverse().forEach((data) => {
     const card = new Card(data, '.myTemplateCard');
     const cardElement = card.generateCard();
     photocardList.prepend(cardElement);
@@ -65,7 +63,7 @@ function renderCard(cardData) {
 addImageForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // передаю подготовленный объект
-  renderCard([{ name: nameImage.value, link: urlImage.value }]);
+  renderCards([{ name: nameImage.value, link: urlImage.value }]);
   // очищаю инпуты для следующего добавления
   // addImageForm.reset();
   closePopup(popupAddImage);
@@ -117,7 +115,7 @@ function handleProfileSubmit(e) {
   closePopup(popupEditProfile);
 }
 // функция рендера карточек
-renderCard(initialCards);
+renderCards(initialCards);
 
 
 const formEditProfile = new FormValidator({
