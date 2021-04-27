@@ -59,7 +59,7 @@ class FormValidator {
     errorElement.textContent = '';
   }
 
-  resetValidation() {
+  resetValidation(buttonActive = false) {
     this._formElement.reset();
     this._inputList.forEach((item) => {
       if (item.classList.contains(this._inputErrorClass)) {
@@ -71,11 +71,11 @@ class FormValidator {
         item.classList.remove(this._errorVisible);
       }
     });
-    if (this._buttonElement.classList.contains(this._inactiveButtonClass)) {
+
+    if(buttonActive) {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.disabled = false;
-    }
-    if (this._formElement.classList.contains("popup__container_type_add-form")) {
+    } else {
       this._buttonElement.classList.add(this._inactiveButtonClass);
       this._buttonElement.disabled = true;
     }

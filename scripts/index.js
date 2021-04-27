@@ -82,14 +82,14 @@ setTimeout(() => {
 // открытие попапа с добавлением картинки
 addImageBtn.addEventListener("click", (e) => {
   // очищение формы
-  formAddCard.resetValidation();
+  formAddCard.resetValidation(false);
   // открытие попапа
   openPopup(popupAddImage);
 });
 // открытие формы при клики на кнопку редактировать
 editProfileBtn.addEventListener("click", (e) => {
   // очищение формы
-  formEditProfile.resetValidation();
+  formEditProfile.resetValidation(true);
   // открытие попапа
   openPopup(popupEditProfile);
   // подготовка инпутов
