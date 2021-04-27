@@ -22,6 +22,14 @@ const urlImage = addImageForm.querySelector(".popup__input_type_url-img");
 const addCloseBtn = document.querySelector(".popup__close_type_add-form");
 // попап с картинкой
 const popupImage = document.querySelector(".popup_type_image");
+const validationConfig = {
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorSelector: '.popup__error',
+  errorVisible: 'popup__error_visible'
+};
 // слушатель на крестики для попапов отдельно
 editCloseBtn.addEventListener("click", (e) => {
   closePopup(popupEditProfile);
@@ -125,24 +133,8 @@ function handleProfileSubmit(e) {
 renderCards(initialCards);
 
 
-const formEditProfile = new FormValidator({
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorSelector: '.popup__error',
-  errorVisible: 'popup__error_visible'
-},
-editProfileForm);
-const formAddCard = new FormValidator({
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorSelector: '.popup__error',
-  errorVisible: 'popup__error_visible'
-},
-addImageForm);
+const formEditProfile = new FormValidator(validationConfig, editProfileForm);
+const formAddCard = new FormValidator(validationConfig, addImageForm);
 
 formEditProfile.enableValidation();
 formAddCard.enableValidation();
