@@ -1,4 +1,3 @@
-"use strict";
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 // находим блок с карточками
