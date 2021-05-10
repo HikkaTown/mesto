@@ -6,7 +6,7 @@ const editIcon = new URL('../images/edit-icon.svg', import.meta.url);
 const likeIconActive = new URL('../images/like-icon_active.svg', import.meta.url);
 const likeIcon = new URL('../images/like-icon.svg', import.meta.url);
 
-const whoIsTheGoat = [
+const iconList = [
   // меняем исходные пути на переменные
   { name: 'Add Icon', link: addIcon },
   { name: 'Close Icon Small', link: closeIconSmall },
