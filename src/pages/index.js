@@ -25,28 +25,20 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-// элементы для открытия попапа профиля и его редактирования
-const editProfileBtn = document.querySelector(".profile__edit-btn");
-const popupEditProfile = document.querySelector(".popup_type_edit-profile");
-const editProfileForm = document.querySelector(
-  ".popup__container_type_edit-form"
-);
-const nameInput = editProfileForm.querySelector(".popup__input_type_name");
-const jobInput = editProfileForm.querySelector(".popup__input_type_job");
+import {
+  editProfileBtn,
+  popupEditProfile,
+  editProfileForm,
+  nameInput,
+  jobInput,
+  addImageBtn,
+  popupAddImage,
+  addImageForm,
+  popupImage,
+  validationConfig
+} from '../utils/constant.js';
+
 // элементы для открытия попапа добавления картинки и его редактирования
-const addImageBtn = document.querySelector(".profile__add-btn");
-const popupAddImage = document.querySelector(".popup_type_add-card");
-const addImageForm = document.querySelector(".popup__container_type_add-form");
-// попап с картинкой
-const popupImage = document.querySelector(".popup_type_image");
-const validationConfig = {
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit',
-  inactiveButtonClass: 'popup__submit_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorSelector: '.popup__error',
-  errorVisible: 'popup__error_visible'
-};
 // Работаем с профилем
 const userInfo = new UserInfo({nameSelector: '.profile__name', descriptionSelctor: '.profile__job'});
 const popupUser = new PopupWithForm((e) => {
