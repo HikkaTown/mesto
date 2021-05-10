@@ -1,0 +1,38 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "* HTML5\r * CSS3\r * JavaScript\r * Оптимизация картинок\r # Посмотреть проект: \r * [Ссылка на GithubPages](https://hikkatown.github.io/mesto/index.html)",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HikkaTown/mesto.git"
+  },
+  "author": "Gennady Zaitcev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HikkaTown/mesto/issues"
+  },
+  "homepage": "https://github.com/HikkaTown/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "autoprefixer": "^10.2.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^5.2.4",
+    "cssnano": "^5.0.2",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss-loader": "^5.2.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "core-js": "^3.12.1"
+  }
+}
