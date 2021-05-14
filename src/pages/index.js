@@ -35,67 +35,68 @@ import {
   popupAddImage,
   addImageForm,
   popupImage,
-  validationConfig
+  validationConfig,
+  popupProfileSelector,
+  popupAddCadrSelector,
+  photocardListSelector,
+  templateCardSelector,
+  profileNameSelector,
+  profileJobSelector
 } from '../utils/constant.js';
-
-// элементы для открытия попапа добавления картинки и его редактирования
 // Работаем с профилем
-const userInfo = new UserInfo({nameSelector: '.profile__name', descriptionSelctor: '.profile__job'});
-const popupUser = new PopupWithForm((e) => {
-  e.preventDefault();
-  popupUser._getInputValues();
-  userInfo.setUserInfo(popupUser.inputValue[0], popupUser.inputValue[1]);
+const userInfo = new UserInfo({nameSelector: profileNameSelector, descriptionSelctor: profileJobSelector});
+const popupUser = new PopupWithForm((formsInput) => {
+  userInfo.setUserInfo(formsInput['Name-Profile'], formsInput.['Job-Profile']);
   popupUser.close();
   },
-  '.popup_type_edit-profile'
+  popupProfileSelector
 );
+// слушатель открытия
 editProfileBtn.addEventListener('click', () => {
+  formEditProfile.resetValidation(true);
   const userData = userInfo.getUserInfo();
   nameInput.value = userData.userName;
   jobInput.value = userData.userDescription;
   popupUser.open();
 });
 // работаем с добавлением карточки
-const popupAddCard = new PopupWithForm((e) => {
-  e.preventDefault();
-  // передаю подготовленный объект
-  popupAddCard._getInputValues();
-  let cardData = [{name: popupAddCard.inputValue[0], link: popupAddCard.inputValue[1]}];
-  const addNewCard = new Section({items: cardData, 
-    renderer: (element) => {
-      const newCard = new Card(element, '.myTemplateCard', () => {
-        const cardPreview = new PopupWithImage(element.name, element.link, '.popup_type_image');
-        cardPreview.open();
-      });
-      const cardElementt = newCard.generateCard();
-      addNewCard.addItem(cardElementt);
-    }}, '.photocard__items');
-  addNewCard.rendererItems();
+const popupAddCard = new PopupWithForm((formsInput) => {
+  const cardData = [{name: formsInput['Name-Card'], link: formsInput['Url-Image']}];
+  console.log(cardData);
+  const cardSection = new Section({items: cardData, renderer: (element) => {
+    const cardElement = createCard(element.name, element.link);
+    cardSection.addItem(cardElement);
+  }}, photocardListSelector);
+  cardSection.rendererItems();
   popupAddCard.close();
-}, '.popup_type_add-card');
+}, popupAddCadrSelector);
+// слушатель открытия
 addImageBtn.addEventListener('click', () => {
+  formAddCard.resetValidation(false);
   popupAddCard.open();
 });
 // рендерю карточки
 const renderCard = new Section({items: initialCards,
     renderer: (element) => {
-      const card = new Card(element, '.myTemplateCard', () => {
-        const cardPreview = new PopupWithImage(element.name, element.link, '.popup_type_image');
-        cardPreview.open();
-      });
-      const cardElement = card.generateCard();
+      const cardElement = createCard(element.name, element.link);
       renderCard.addItem(cardElement);
-    }}, '.photocard__items');
-
+    }}, photocardListSelector);
 renderCard.rendererItems();
-
+// открытие попапа с картинкой
+const openPreview = new PopupWithImage();
+// Функция создания карточки отдельно
+function createCard(title, link) {
+  const card = new Card({title, link}, templateCardSelector, () => {
+    openPreview.open({title, link});
+  });
+  return card.generateCard();
+}
 // добавляю класс с анимацией чтобы не было рывков при загрузке страницы
 setTimeout(() => {
   popupEditProfile.classList.add("animation-transition");
   popupAddImage.classList.add("animation-transition");
   popupImage.classList.add("animation-transition");
 }, 500);
-
 // -------- Валидация форм -------------
 const formEditProfile = new FormValidator(validationConfig, editProfileForm);
 const formAddCard = new FormValidator(validationConfig, addImageForm);

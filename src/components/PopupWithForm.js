@@ -6,33 +6,28 @@ export default class PopupWithForm extends Popup {
     super(popupSelector);
     this._popupForm = this._popup.querySelector('form');
     this._handleSubmitForm = handleSubmit;
-    this.inputValue = [];
   }
 
   _getInputValues = () => {
-    this._popupForm.querySelectorAll('input').forEach((item, i) => {
-      this.inputValue[i] = item.value;
-    });
+    this._inputList = this._popupForm.querySelectorAll('.popup__input');
+    this._formValues = {};
+    this._inputList.forEach(input => this._formValues[input.name] = input.value);
+    return this._formValues;
   }
+
+  _handleSubmit = (e) => {
+    e.preventDefault();
+    this._handleSubmitForm(this._getInputValues());
+  }
+
   _setEventListeners = () => {
-    this._popupForm.addEventListener('submit', this._handleSubmitForm);
-    this._popup.addEventListener('click', this._handleEscClose);
-    this._closeBtn.addEventListener('click', this._handleEscClose);
-    window.addEventListener('keyup', this._handleEscClose);
+    super._setEventListeners();
+    this._popupForm.addEventListener('submit', this._handleSubmit);
   }
 
-  _removeEventListeners = () => {
-    this._popup.removeEventListener('click', this._handleEscClose);
-    this._closeBtn.removeEventListener('click', this._handleEscClose);
-    window.removeEventListener('keyup', this._handleEscClose);
-    this._popupForm.removeEventListener('submit', this._handleSubmitForm);
-  }
-  
-
-  close = () => {
-    this._popup.classList.remove('popup_opened');
-    document.querySelector('.page').classList.remove('overflow-hidden');
-    this._removeEventListeners();
+  close() {
+    super.close();
     this._popupForm.reset();
+    this._popupForm.removeEventListener('submit', this._handleSubmit);
   }
 }

@@ -10,7 +10,7 @@ export default class Popup {
     }
   }
 
-  _setEventListeners = () => {
+  _setEventListeners() {
     this._popup.addEventListener('click', this._handleEscClose);
     this._closeBtn.addEventListener('click', this._handleEscClose);
     window.addEventListener('keyup', this._handleEscClose);
@@ -22,15 +22,16 @@ export default class Popup {
     window.removeEventListener('keyup', this._handleEscClose);
   }
 
-  open = () => {
+  open() {
     this._popup.classList.add('popup_opened');
     document.querySelector('.page').classList.add('overflow-hidden');
     this._setEventListeners();
   }
 
-  close = () => {
+  close() {
     this._popup.classList.remove('popup_opened');
     document.querySelector('.page').classList.remove('overflow-hidden');
     this._removeEventListeners();
   }
+
 }

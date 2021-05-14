@@ -1,7 +1,7 @@
 class Card {
-  constructor(cardData, templateSelector, handleOpenPopup) {
-    this._name = cardData.name;
-    this._link = cardData.link;
+  constructor({title, link}, templateSelector, handleOpenPopup) {
+    this._name = title;
+    this._link = link;
     this._templateSelector = templateSelector;
     this._handleOpenPopup = handleOpenPopup;
   }
