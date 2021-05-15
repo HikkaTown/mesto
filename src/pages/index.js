@@ -6,17 +6,6 @@ const editIcon = new URL('../images/edit-icon.svg', import.meta.url);
 const likeIconActive = new URL('../images/like-icon_active.svg', import.meta.url);
 const likeIcon = new URL('../images/like-icon.svg', import.meta.url);
 
-const iconList = [
-  // меняем исходные пути на переменные
-  { name: 'Add Icon', link: addIcon },
-  { name: 'Close Icon Small', link: closeIconSmall },
-  { name: 'Close Icon', link: closeIcon },
-  { name: 'Delete Icon', link: deleteIcon },
-  { name: 'Edit Icon', link: editIcon },
-  { name: 'Like Icon Active', link: likeIconActive },
-  { name: 'Like Icon', link: likeIcon },
-]; 
-
 import './index.css';
 import initialCards from '../utils/initialCards';
 import Section from '../components/Section.js';
@@ -46,7 +35,7 @@ import {
 // Работаем с профилем
 const userInfo = new UserInfo({nameSelector: profileNameSelector, descriptionSelctor: profileJobSelector});
 const popupUser = new PopupWithForm((formsInput) => {
-  userInfo.setUserInfo(formsInput['Name-Profile'], formsInput.['Job-Profile']);
+  userInfo.setUserInfo(formsInput['nameProfile'], formsInput.['jobProfile']);
   popupUser.close();
   },
   popupProfileSelector
@@ -60,17 +49,12 @@ editProfileBtn.addEventListener('click', () => {
   popupUser.open();
 });
 // работаем с добавлением карточки
-const popupAddCard = new PopupWithForm((formsInput) => {
-  const cardData = [{name: formsInput['Name-Card'], link: formsInput['Url-Image']}];
-  console.log(cardData);
-  const cardSection = new Section({items: cardData, renderer: (element) => {
-    const cardElement = createCard(element.name, element.link);
-    cardSection.addItem(cardElement);
-  }}, photocardListSelector);
-  cardSection.rendererItems();
+const handleAddCardFormSubmit = ({name, link}) => {
+  renderCard.addItem(createCard(name, link));
   popupAddCard.close();
-}, popupAddCadrSelector);
-// слушатель открытия
+};
+const popupAddCard = new PopupWithForm(handleAddCardFormSubmit, popupAddCadrSelector);
+
 addImageBtn.addEventListener('click', () => {
   formAddCard.resetValidation(false);
   popupAddCard.open();
@@ -85,9 +69,9 @@ renderCard.rendererItems();
 // открытие попапа с картинкой
 const openPreview = new PopupWithImage();
 // Функция создания карточки отдельно
-function createCard(title, link) {
-  const card = new Card({title, link}, templateCardSelector, () => {
-    openPreview.open({title, link});
+function createCard(name, link) {
+  const card = new Card({name, link}, templateCardSelector, () => {
+    openPreview.open({name, link});
   });
   return card.generateCard();
 }
