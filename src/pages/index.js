@@ -1,11 +1,3 @@
-const addIcon = new URL('../images/add-icon.svg', import.meta.url);
-const closeIconSmall = new URL('../images/close-icon_small.svg', import.meta.url);
-const closeIcon = new URL('../images/close-icon.svg', import.meta.url);
-const deleteIcon = new URL('../images/delete-icon.svg', import.meta.url);
-const editIcon = new URL('../images/edit-icon.svg', import.meta.url);
-const likeIconActive = new URL('../images/like-icon_active.svg', import.meta.url);
-const likeIcon = new URL('../images/like-icon.svg', import.meta.url);
-
 import './index.css';
 import initialCards from '../utils/initialCards';
 import Section from '../components/Section.js';
@@ -35,7 +27,7 @@ import {
 // Работаем с профилем
 const userInfo = new UserInfo({nameSelector: profileNameSelector, descriptionSelctor: profileJobSelector});
 const popupUser = new PopupWithForm((formsInput) => {
-  userInfo.setUserInfo(formsInput['nameProfile'], formsInput.['jobProfile']);
+  userInfo.setUserInfo(formsInput['nameProfile'], formsInput['jobProfile']);
   popupUser.close();
   },
   popupProfileSelector
