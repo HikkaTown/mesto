@@ -10,7 +10,7 @@ export const photocardListSelector = '.photocard__items';
 export const templateCardSelector = '.myTemplateCard';
 export const profileNameSelector = '.profile__name';
 export const profileJobSelector = '.profile__job';
-
+export const profileAvatarOverlay = document.querySelector('.profile__avatar-overlay');
 export const nameInput = editProfileForm.querySelector(".popup__input_type_name");
 export const jobInput = editProfileForm.querySelector(".popup__input_type_job");
 // элементы для открытия попапа добавления картинки и его редактирования

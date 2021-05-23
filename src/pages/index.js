@@ -22,7 +22,8 @@ import {
   photocardListSelector,
   templateCardSelector,
   profileNameSelector,
-  profileJobSelector
+  profileJobSelector,
+  profileAvatarOverlay
 } from '../utils/constant.js';
 // Работаем с профилем
 const userInfo = new UserInfo({nameSelector: profileNameSelector, descriptionSelctor: profileJobSelector});
@@ -72,6 +73,7 @@ setTimeout(() => {
   popupEditProfile.classList.add("animation-transition");
   popupAddImage.classList.add("animation-transition");
   popupImage.classList.add("animation-transition");
+  profileAvatarOverlay.classList.add("animation-transition");
 }, 500);
 // -------- Валидация форм -------------
 const formEditProfile = new FormValidator(validationConfig, editProfileForm);

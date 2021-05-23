@@ -12,7 +12,10 @@
   </header>
   <main>
     <section class="profile">
-      <img src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар профиля" class="profile__avatar" />
+      <div class="profile__avatar-content">
+        <img src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар профиля" class="profile__avatar" />
+        <div class="profile__avatar-overlay"></div>
+      </div>
       <div class="profile__info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <button class="profile__edit-btn" type="button"></button>
@@ -28,7 +31,10 @@
             <img src="#" alt="#" class="photocard__image" />
             <div class="photocard__content">
               <p class="photocard__title"></p>
-              <button class="photocard__like-btn" type="button"></button>
+              <div class="photocard__content-like">
+                <button class="photocard__like-btn" type="button"></button>
+                <p class="photocard__like-value">5</p>
+              </div>
             </div>
           </li>
         </template>
@@ -62,6 +68,22 @@
         <img src="#" alt="#" class="popup__image">
         <p class="popup__title-image"></p>
       </div>
+    </div>
+    <div class="popup popup_type_confirm">
+      <form action="#" novalidate name="PoupConfirm" class="popup__container popup__container_type_confirm">
+        <button type="button" class="popup__close popup__close_type_confirm"></button>
+        <h2 class="popup__title popup__title-confirm">Вы уверены?</h2>
+        <button class="popup__submit popup__submit_type_confirm" type="button">Да</button>
+      </form>
+    </div>
+    <div class="popup popup_type_add-avatar">
+      <form action="#" name="Add-Avatar" class="popup__container popup__container_type_add-avatar" novalidate>
+        <button type="button" class="popup__close popup__close_type_add-form"></button>
+        <h2 class="popup__title popup__title-avatar">Обновить аватар</h2>
+        <input class="popup__input popup__input_type_url-avatar" id="url-avatar-input" required type="url" name="link" placeholder="Ссылка на фотографию">
+        <span class="popup__error url-img-input-error"></span>
+        <button class="popup__submit popup__submit_disabled" disabled="true" type="submit">Сохранить</button>
+      </form>
     </div>
   </main>
   <footer class="footer">
