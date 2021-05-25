@@ -4,12 +4,16 @@ export const popupEditProfile = document.querySelector(".popup_type_edit-profile
 export const editProfileForm = document.querySelector(
   ".popup__container_type_edit-form"
 );
+export const popupEditAvatarSelector = '.popup_type_add-avatar';
+export const popupEditAvatar = document.querySelector('.popup_type_add-avatar');
+export const editAvatarForm = document.querySelector('.popup__container_type_add-avatar');
 export const popupAddCadrSelector = '.popup_type_add-card';
 export const popupProfileSelector = ".popup_type_edit-profile";
 export const photocardListSelector = '.photocard__items';
 export const templateCardSelector = '.myTemplateCard';
 export const profileNameSelector = '.profile__name';
 export const profileJobSelector = '.profile__job';
+export const profileAvatar = document.querySelector('.profile__avatar');
 export const profileAvatarOverlay = document.querySelector('.profile__avatar-overlay');
 export const nameInput = editProfileForm.querySelector(".popup__input_type_name");
 export const jobInput = editProfileForm.querySelector(".popup__input_type_job");
