@@ -36,7 +36,6 @@ class Card {
     });
     this._likeButton.addEventListener('click', () => {
       this._handleLikeCard(this._likeButton, this._cardId, this._likeCount);
-      this._likeButton.classList.toggle('photocard__like-btn_active');
     });
     this._deleteButton.addEventListener('click', () => {
       this._handleDeletCard(this._element);

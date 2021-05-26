@@ -52,12 +52,13 @@ const userInfo = new UserInfo({nameSelector: profileNameSelector, descriptionSel
 const popupUser = new PopupWithForm((formsInput) => {
   popupUser.renderLoading(true);
   api.setUserData(formsInput['nameProfile'], formsInput['jobProfile'])
-    .catch(e => console.log(`Ошибка - ${e}`))
-    .finally(function () {
+    .then(function () {
       userInfo.setUserInfo(formsInput['nameProfile'], formsInput['jobProfile']);
       popupUser.close();
       popupUser.renderLoading(false);
-    });
+    })
+    .catch(e => console.log(`Ошибка - ${e}`))
+    .finally();
   },
   popupProfileSelector
 );
@@ -74,12 +75,13 @@ const editAvatar = new PopupWithForm((formsInput) => {
   editAvatar.renderLoading(true);
   // тут нужно сделать запрос на сервер для смены аватарки
   api.setUserAvatar(formsInput.link)
-    .catch(e => console.log(`Ошибка - ${e}`))
-    .finally(function () {
+    .then(function () {
       profileAvatar.src = formsInput.link;
       editAvatar.close();
       editAvatar.renderLoading(false);
-    });
+    })
+    .catch(e => console.log(`Ошибка - ${e}`))
+    .finally();
 }, popupEditAvatarSelector);
 profileAvatarOverlay.addEventListener('click', () => {
   editAvatar.open();
@@ -95,24 +97,32 @@ function createCard(name, link, likes, cardId, userId, ownerId) {
     const confirm = new PopupWithForm(() => {
       confirm.renderLoading(true);
       api.removeCard(card.getCardId())
-        .catch(e => console.log(`Ошибка - ${e}`))
-        .finally(function () {
+        .then(function () {
           element.remove();
           confirm.close();
           confirm.renderLoading(false);
-        });
+        })
+        .catch(e => console.log(`Ошибка - ${e}`))
+        .finally();
     }, '.popup_type_confirm');
     confirm.open();
   }, (likeBtn, cardId, likeCount) => {
     if(likeBtn.classList.contains('photocard__like-btn_active')) {
       api.deletLike(cardId)
+        .then((e) => {
+          likeCount.textContent = +likeCount.textContent ? +likeCount.textContent-1 : '0';
+          likeBtn.classList.remove('photocard__like-btn_active')
+        })
         .catch(e => console.log(`Ошибка - ${e}`))
-        .finally((e) => {likeCount.textContent = +likeCount.textContent ? +likeCount.textContent-1 : '0';});
+        .finally();
     } else {
       api.setLike(cardId)
+        .then(() => {
+          likeCount.textContent = +likeCount.textContent+1;
+          likeBtn.classList.add('photocard__like-btn_active')
+        })
         .catch(e => console.log(`Ошибка - ${e}`))
-        .finally(() => {likeCount.textContent = +likeCount.textContent+1;});
-      
+        .finally();
     }
   });
   return card.generateCard();
@@ -138,12 +148,11 @@ const handleAddCardFormSubmit = ({name, link}) => {
     .then(data => {
       const userId = userInfo.getUserId();
       renderCard.addItem(createCard(data.name, data.link, data.likes, data._id, data['owner']['_id'], userId));
-    })
-    .catch(e => console.log(`Ошибка - ${e}`))
-    .finally( function () {
       popupAddCard.close();
       popupAddCard.renderLoading(false);
-    } );
+    })
+    .catch(e => console.log(`Ошибка - ${e}`))
+    .finally();
 };
 // попап добавления карточки.
 const popupAddCard = new PopupWithForm(handleAddCardFormSubmit, popupAddCadrSelector);
