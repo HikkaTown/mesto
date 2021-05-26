@@ -55,10 +55,9 @@ const popupUser = new PopupWithForm((formsInput) => {
     .then(function () {
       userInfo.setUserInfo(formsInput['nameProfile'], formsInput['jobProfile']);
       popupUser.close();
-      popupUser.renderLoading(false);
     })
     .catch(e => console.log(`Ошибка - ${e}`))
-    .finally();
+    .finally(() => {popupUser.renderLoading(false)});
   },
   popupProfileSelector
 );
@@ -78,10 +77,9 @@ const editAvatar = new PopupWithForm((formsInput) => {
     .then(function () {
       profileAvatar.src = formsInput.link;
       editAvatar.close();
-      editAvatar.renderLoading(false);
     })
     .catch(e => console.log(`Ошибка - ${e}`))
-    .finally();
+    .finally(() => {editAvatar.renderLoading(false)});
 }, popupEditAvatarSelector);
 profileAvatarOverlay.addEventListener('click', () => {
   editAvatar.open();
@@ -100,10 +98,9 @@ function createCard(name, link, likes, cardId, userId, ownerId) {
         .then(function () {
           element.remove();
           confirm.close();
-          confirm.renderLoading(false);
         })
         .catch(e => console.log(`Ошибка - ${e}`))
-        .finally();
+        .finally(() => {confirm.renderLoading(false)});
     }, '.popup_type_confirm');
     confirm.open();
   }, (likeBtn, cardId, likeCount) => {
@@ -149,10 +146,9 @@ const handleAddCardFormSubmit = ({name, link}) => {
       const userId = userInfo.getUserId();
       renderCard.addItem(createCard(data.name, data.link, data.likes, data._id, data['owner']['_id'], userId));
       popupAddCard.close();
-      popupAddCard.renderLoading(false);
     })
     .catch(e => console.log(`Ошибка - ${e}`))
-    .finally();
+    .finally(() => {popupAddCard.renderLoading(false)});
 };
 // попап добавления карточки.
 const popupAddCard = new PopupWithForm(handleAddCardFormSubmit, popupAddCadrSelector);
