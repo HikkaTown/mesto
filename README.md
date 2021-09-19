@@ -8,3 +8,6 @@
 * Оптимизация картинок
 # Посмотреть проект: 
 * [Ссылка на GithubPages](https://hikkatown.github.io/mesto/index.html)
+
+`npm run buld` — собирает проект.
+`npm run dev` — запускает сервер с hot-reload
